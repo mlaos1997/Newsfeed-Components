@@ -1,8 +1,7 @@
 // This is the data we will be using to create our articles. Look at it, then proceed to line 93.
 // OPTIONAL: if you're feeling adventurous, try to make this data an export from a different module, and import it here.
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
-const data = [
-  {
+const data = [{
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
     firstParagraph: `Lucas ipsum dolor sit amet ben twi'lek padmé darth darth darth moff hutt organa twi'lek. Ben amidala secura skywalker lando
@@ -103,6 +102,7 @@ const data = [
     <span class="expandButton">+</span>
   </div>
 
+
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
@@ -114,3 +114,50 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+
+
+function articleCreator(articleData) {
+  const article = document.createElement('div');
+  article.classList.add('article');
+
+  const articleTitle = document.createElement('h2');
+  articleTitle.textContent = articleData.title
+
+  const articleDate = document.createElement('p');
+  articleDate.classList.add('date');
+  articleDate.textContent = articleData.date;
+
+  const firstParagraph = document.createElement('p');
+  firstParagraph.textContent = articleData.firstParagraph;
+
+  const secondParagraph = document.createElement('p');
+  secondParagraph.textContent = articleData.secondParagraph;
+
+  const thirdParagraph = document.createElement('p');
+  thirdParagraph.textContent = articleData.thirdParagraph;
+
+  const articleButton = document.createElement('span');
+  articleButton.classList.add('expandButton');
+  articleButton.textContent = '+';
+
+
+
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(firstParagraph);
+  article.appendChild(secondParagraph);
+  article.appendChild(thirdParagraph);
+  article.appendChild(articleButton)
+
+  articleButton.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  })
+  return article;
+}
+
+const articles = document.querySelector('.articles');
+
+data.forEach(newsArticle => {
+  articles.appendChild(articleCreator(newsArticle))
+})
